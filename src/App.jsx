@@ -21,32 +21,37 @@ function App() {
   };
 
   const validate = () => {
-    // Validate all fields independently and show all errors at once
-    let errors = [];
-    if (!form.username) {
-      errors.push('Please fill out the username field.');
+    // Validate each field independently and show the relevant error even if other fields are blank
+    if (form.email && !form.email.includes('@')) {
+      alert('Invalid email. Please check your email address.');
+      return false;
     }
-    if (!form.email) {
-      errors.push('Please fill out the email field.');
-    } else if (!form.email.includes('@')) {
-      errors.push('Invalid email. Please check your email address.');
+    if (form.phone && !/^\d{10}$/.test(form.phone)) {
+      alert('Invalid phone number. Please enter a 10-digit phone number.');
+      return false;
     }
-    if (!form.phone) {
-      errors.push('Please fill out the phone field.');
-    } else if (!/^\d{10}$/.test(form.phone)) {
-      errors.push('Invalid phone number. Please enter a 10-digit phone number.');
-    }
-    if (!form.dob) {
-      errors.push('Please fill out the dob field.');
-    } else {
+    if (form.dob) {
       const dobDate = new Date(form.dob);
       const today = new Date();
       if (dobDate > today) {
-        errors.push('Invalid date of birth. Please select a valid date.');
+        alert('Invalid date of birth. Please select a valid date.');
+        return false;
       }
     }
-    if (errors.length > 0) {
-      alert(errors[0]);
+    if (!form.username) {
+      alert('Please fill out the username field.');
+      return false;
+    }
+    if (!form.email) {
+      alert('Please fill out the email field.');
+      return false;
+    }
+    if (!form.phone) {
+      alert('Please fill out the phone field.');
+      return false;
+    }
+    if (!form.dob) {
+      alert('Please fill out the dob field.');
       return false;
     }
     return true;
