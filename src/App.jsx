@@ -29,7 +29,7 @@ function App() {
       alert('Please fill out the email field.');
       return false;
     }
-    if (!form.email.includes('@')) {
+    if (form.email && !form.email.includes('@')) {
       alert('Invalid email. Please check your email address.');
       return false;
     }
@@ -37,7 +37,7 @@ function App() {
       alert('Please fill out the phone field.');
       return false;
     }
-    if (!/^\d{10}$/.test(form.phone)) {
+    if (form.phone && !/^\d{10}$/.test(form.phone)) {
       alert('Invalid phone number. Please enter a 10-digit phone number.');
       return false;
     }
@@ -45,11 +45,13 @@ function App() {
       alert('Please fill out the dob field.');
       return false;
     }
-    const dobDate = new Date(form.dob);
-    const today = new Date();
-    if (dobDate > today) {
-      alert('Invalid date of birth. Please select a valid date.');
-      return false;
+    if (form.dob) {
+      const dobDate = new Date(form.dob);
+      const today = new Date();
+      if (dobDate > today) {
+        alert('Invalid date of birth. Please select a valid date.');
+        return false;
+      }
     }
     return true;
   };
