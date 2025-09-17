@@ -21,6 +21,7 @@ function App() {
   };
 
   const validate = () => {
+    // Validate all fields independently and show all errors at once
     let errors = [];
     if (!form.username) {
       errors.push('Please fill out the username field.');
